@@ -14,13 +14,19 @@ searchBtn.addEventListener('click', setQuery2);
 function setQuery(evt) {
     if (evt.keyCode == 13) {
         value = searchbox.value;
-        getResults(searchbox.value);
-        console.log(searchbox.value);
+        if (value == '') { alert("Please Type City Name.") }
+        else {
+            getResults(searchbox.value);
+
+        }
     }
 }
 
-function setQuery2(){  
-    getResults(document.querySelector('.search-box').value);
+function setQuery2() {
+    if (document.querySelector('.search-box').value == '') { alert("Please Type City Name.") }
+    else {
+        getResults(document.querySelector('.search-box').value);
+    }
 }
 
 function getResults(query) {
@@ -36,56 +42,64 @@ function getResults(query) {
             displayResults(apiResponse);
         },
         error: function (err) {
+            var el = document.querySelector('#mainSection');
+            el.style.display = 'none';
             console.log("The error is " + err);
+            let errorSection = document.querySelector('.error');
+            errorSection.innerText = "Something went Wrong, Please type only name of city. Check spelling too.";
+            setTimeout(() => {
+             window.location.reload();
+            }, 1500);
+         
+
         }
     });
 }
 
 function displayResults(weather) {
     console.log(weather);
-    let city= document.querySelector('.location .city');
-    city.innerText= `${weather.name}, ${weather.sys.country}`;
+    let city = document.querySelector('.location .city');
+    city.innerText = `${weather.name}, ${weather.sys.country}`;
 
-    let now= new Date();
-    let date= document.querySelector('.location .date')
-    date.innerText= dateBuilder(now);
+    let now = new Date();
+    let date = document.querySelector('.location .date')
+    date.innerText = dateBuilder(now);
 
-    let tempNow= weather.main.temp;
-     let feelsLikeT= weather.main.feels_like;
-    let celcius= Math.round(parseFloat(tempNow)-273.15);
-    let feelsLike= Math.round(parseFloat(feelsLikeT)-273.15);
+    let tempNow = weather.main.temp;
+    let feelsLikeT = weather.main.feels_like;
+    let celcius = Math.round(parseFloat(tempNow) - 273.15);
+    let feelsLike = Math.round(parseFloat(feelsLikeT) - 273.15);
 
 
-   let temp= document.querySelector('.current  .temp');
-   temp.innerText= celcius+ '°C';
+    let temp = document.querySelector('.current  .temp');
+    temp.innerText = celcius + '°C';
 
-   let feels= document.querySelector('.current  .feels-like');
-   feels.innerText= feelsLike+ '°C';
-   
+    let feels = document.querySelector('.current  .feels-like');
+    feels.innerText = feelsLike + '°C';
+
 
     let getWeather = weather.weather[0].main;
     let getWeatherDes = weather.weather[0].description;
-    
 
-   let weatherNow = document.querySelector('.current .weather');
-    weatherNow.innerText= getWeather;
+
+    let weatherNow = document.querySelector('.current .weather');
+    weatherNow.innerText = getWeather;
 
     let weatherDes = document.querySelector('.current .weather-description');
-    weatherDes.innerText= getWeatherDes;
+    weatherDes.innerText = getWeatherDes;
 
 }
 
 //copied  
-function dateBuilder (d) {
+function dateBuilder(d) {
     let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     let day = days[d.getDay()];
     let date = d.getDate();
     let month = months[d.getMonth()];
     let year = d.getFullYear();
-  
+
     return `${day} ${date} ${month} ${year}`;
-  }
+}
 
 
-  

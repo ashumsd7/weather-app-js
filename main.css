@@ -62,6 +62,13 @@ header img:hover{
 header input:focus{
     background-color: rgba(255,255,255,0.6);
 }
+.error
+{
+    color: rgb(240, 78, 78);
+    font-size: 16px;
+    font-weight: 500;
+    
+}
 
 main{
     flex:1 1 100%;
