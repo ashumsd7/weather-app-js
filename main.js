@@ -4,6 +4,9 @@ const api = {
 
 }
 
+// let newinput = document.querySelector('.my-input');
+// newinput.value = "Please Type a  City Name."
+
 const searchbox = document.querySelector('.search-box');
 searchbox.addEventListener('keypress', setQuery);
 
@@ -48,9 +51,9 @@ function getResults(query) {
             let errorSection = document.querySelector('.error');
             errorSection.innerText = "Something went Wrong, Please type only name of city. Check spelling too.";
             setTimeout(() => {
-             window.location.reload();
+                window.location.reload();
             }, 1500);
-         
+
 
         }
     });
@@ -59,6 +62,7 @@ function getResults(query) {
 function displayResults(weather) {
     console.log(weather);
     let city = document.querySelector('.location .city');
+    var cityName= city.value;
     city.innerText = `${weather.name}, ${weather.sys.country}`;
 
     let now = new Date();
@@ -88,6 +92,9 @@ function displayResults(weather) {
     let weatherDes = document.querySelector('.current .weather-description');
     weatherDes.innerText = getWeatherDes;
 
+     SpeakIt(cityName,celcius, feelsLike, getWeather, getWeatherDes);
+
+
 }
 
 //copied  
@@ -103,3 +110,30 @@ function dateBuilder(d) {
 }
 
 
+
+var voiceList = document.querySelector('#voiceList');
+var txtInput = document.querySelector('.txtInput');
+var btnSpeak = document.querySelector('#btnSpeak');
+var tts = window.speechSynthesis;
+
+
+
+btnSpeak.addEventListener('click', (e) => {
+    e.preventDefault();
+   
+    
+});
+
+function SpeakIt(cityName,temp, feelsLike, weather, weatherDis) {
+    var speechA= "You have searched for"
+    var speechB=searchbox.value;
+    console.log(speechB);
+    var speechC= "Current temperature in"
+    var speechD= temp;
+    console.log(speechD);
+    var speechE= "degree celcius"
+    var all= speechA+ speechB + speechC + speechB+ 'is'+ speechD + 'degree ' + 'and its feels like' +feelsLike +speechE ;
+    var toSpeak = new SpeechSynthesisUtterance(all);
+    tts.speak(toSpeak);
+}
+ 

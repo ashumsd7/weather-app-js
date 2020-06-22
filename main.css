@@ -96,7 +96,7 @@ color: white;
 font-size: 102px;
 font-weight: 900;
 margin: 30px 0px;
-text-shadow: 2px 10px rgba(0,0,0,0.6);
+text-shadow: 2px 10px rgba(0,0,0,.9);
 }
 .current .feels-like{
 color: white;
