@@ -132,7 +132,7 @@ function SpeakIt(cityName,temp, feelsLike, weather, weatherDis) {
     var speechD= temp;
     console.log(speechD);
     var speechE= "degree celcius"
-    var all= speechA+ speechB + speechC + speechB+ 'is'+ speechD + 'degree ' + 'and its feels like' +feelsLike +speechE ;
+    var all= speechA+ speechB + speechC + speechB+ 'is'+ speechD + 'degree ' + 'and its feels like' +feelsLike +speechE + 'Weather condition is      ' + weather + weatherDis;
     var toSpeak = new SpeechSynthesisUtterance(all);
     tts.speak(toSpeak);
 }
